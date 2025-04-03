@@ -1,6 +1,44 @@
 #root {
-  max-width: 1280px;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+}
+
+.posterWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 1rem 2rem 1rem;
+}
+
+.leftLogo {
+  width: 80px;
+  height: 55px;
+}
+
+.rightLogo {
+  width: 180px;
+  height: 55px;
+}
+
+.content {
+  color: white;
+  text-align: center;
+  width: 100%;
+}
+
+.content img {
+  width: 100%;
+}
+
+.footer img {
+  margin-top: 2rem;
+  width: 50%;
 }
