@@ -68,3 +68,10 @@
     width: 90%;
   }
 }
+
+@media screen and (min-width: 768px) {
+  .posterWrapper {
+    max-width: 375px;
+    position: relative;
+  }
+}
