@@ -1,9 +1,7 @@
 import './App.css';
-import Background from './assets/background.jpg';
-import LeftLogo from './assets/left-logo.png';
-import RightLogo from './assets/right-logo.png';
-import LogoPreClick from './assets/logo-pre-click.png';
-import LogoAfterClick from './assets/background-after-click.png';
+import Background from './assets/background.png';
+import LogoPreClick from './assets/pre-click-content.png';
+import LogoAfterClick from './assets/after-click-content.png';
 import AcceptButton from './assets/accept-button.png';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
@@ -29,30 +27,27 @@ function App() {
       className="posterWrapper"
       style={{
         background: `url(${Background})`,
-        position: 'relative',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
     >
-      <div className="header">
-        <img src={LeftLogo} alt="Left Logo" className="leftLogo" />
-        <img src={RightLogo} alt="Right Logo" className="rightLogo" />
-      </div>
-      {isAccepted ? (
-        <div className="content">
-          <img src={LogoAfterClick} alt="Logo After Click" className="logoAfterClick" />
-        </div>
-      ) : (
-        <>
+      <div>
+        {isAccepted ? (
           <div className="content">
-            <img src={LogoPreClick} alt="Logo Pre Click" className="logoPreClick" />
+            <img src={LogoAfterClick} alt="Logo After Click" className="logoAfterClick" />
           </div>
-          <div className="footer" onClick={handleOnClick}>
-            <img src={AcceptButton} alt="Accept Button" className="acceptButton" />
-          </div>
-        </>
-      )}
+        ) : (
+          <>
+            <div className="content">
+              <img src={LogoPreClick} alt="Logo Pre Click" className="logoPreClick" />
+            </div>
+            <div className="footer" onClick={handleOnClick}>
+              <img src={AcceptButton} alt="Accept Button" className="acceptButton" />
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 }
