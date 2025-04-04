@@ -38,9 +38,6 @@
   width: 100%;
 }
 
-.content img {
-  width: 100%;
-}
 .footer {
   margin-top: 2rem;
 }
@@ -90,24 +87,42 @@
   }
 }
 
+.logoAfterClick {
+  width: 90%;
+}
+
+.logoPreClick {
+  width: 100%;
+}
+
 /* Small Phones (≤ 320px - iPhone SE, old devices) */
 @media (max-width: 320px) {
-  .content img {
-    width: 80%;
+  .logoPreClick {
+    width: 100%;
+  }
+
+  .logoAfterClick {
+    width: 90%;
   }
 }
 
 /* Medium Phones (≤ 375px - iPhone 12, 13, 14, Pixel 5) */
-@media (max-width: 375px) {
-  .content img {
+@media (min-width: 321px) and (max-width: 375px) {
+  .logoPreClick {
+    width: 100%;
+  }
+  .logoAfterClick {
     width: 90%;
   }
 }
 
 /* Large Phones (≤ 414px - iPhone 12 Pro Max) */
-@media (max-width: 414px) {
-  .content img {
-    width: 90%;
+@media (min-width: 376px) and (max-width: 414px) {
+  .logoPreClick {
+    width: 100% !important;
+  }
+  .logoAfterClick {
+    width: 90% !important;
   }
 }
 
@@ -115,5 +130,39 @@
   .posterWrapper {
     max-width: 375px;
     position: relative;
+  }
+}
+
+/* Loading overlay */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it appears above other elements */
+}
+
+/* Spinner */
+.loading .spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0; /* Light gray border */
+  border-top: 5px solid #01a49d; /* Blue border for the spinner */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
