@@ -45,7 +45,7 @@
   margin-top: 2rem;
 }
 .footer img {
-  width: 50%;
+  width: 50% !important;
 }
 
 .hidden {
