@@ -7,7 +7,6 @@ import { useState } from 'react';
 // import Cookies from 'js-cookie';
 
 function App() {
-  const [isAccepted, setIsAccepted] = useState(false);
   const [animationClass, setAnimationClass] = useState(''); // Track animation class
   const [showPreClickContent, setShowPreClickContent] = useState(true); // Control which content to show
 
@@ -25,7 +24,6 @@ function App() {
 
     setTimeout(() => {
       setShowPreClickContent(false); // Hide pre-click content
-      setIsAccepted(true); // Update state
       setAnimationClass('fade-in');
       // Cookies.set('boehringer_10_accepted', 'true', { expires: 5 });
     }, 200);
