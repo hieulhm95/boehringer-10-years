@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     allowedHosts: [
       'empagliflozin10.com',
-      'b05d-2402-800-6215-d415-df8-479a-c662-d28e.ngrok-free.app',
+      '44a8-2402-800-6215-d415-2456-32ce-2078-7d0f.ngrok-free.app',
     ],
     host: true,
     port: 3000,

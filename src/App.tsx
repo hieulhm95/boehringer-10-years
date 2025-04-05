@@ -32,8 +32,8 @@ function App() {
       setTimeout(() => {
         setIsAnimating(false); // Animation is complete
         setLoading(false); // Hide loading indicator
-      }, 500); // Match the duration of the fade-in animation
-    }, 500); // Match the duration of the fade-out animation
+      }, 200); // Match the duration of the fade-in animation
+    }, 200); // Match the duration of the fade-out animation
   };
 
   return (
