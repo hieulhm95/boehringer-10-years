@@ -73,7 +73,7 @@ function App() {
           height: 'calc(100vh - 120px)',
           width: '100%',
           flexDirection: 'column',
-          paddingTop: '3rem',
+          paddingTop: '3.5rem',
         }}
       >
         {loading ? (
@@ -84,7 +84,7 @@ function App() {
           <div className={`content ${animationClass}`}>
             <div
               style={{
-                maxWidth: '65%',
+                maxWidth: '60%',
                 margin: '0 auto',
                 display: 'flex',
                 flexDirection: 'column',
