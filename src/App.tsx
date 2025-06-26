@@ -96,6 +96,13 @@ function App() {
         backgroundPosition: 'center',
       }}
     >
+      <button
+        onClick={() => {
+          window.location.href = '/live';
+        }}
+      >
+        Live
+      </button>
       {/* Header with logos */}
       <div className="header">
         <img src={LeftLogo} alt="Left Logo" className="leftLogo" />
