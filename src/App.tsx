@@ -30,7 +30,13 @@ function App() {
   //   }
   // }, []);
 
-  const handleOnClick = () => {
+  const handleOnClick = async () => {
+    // Validate input
+    if (!inputValue.trim()) {
+      alert('Vui lòng nhập tên của bạn');
+      return;
+    }
+
     // Save the current input value
     setSavedInputValue(inputValue);
 
@@ -38,15 +44,46 @@ function App() {
     setIsAnimating(true); // Mark animation as in progress
     setLoading(true); // Show loading indicator
 
-    setTimeout(() => {
-      setShowPreClickContent(false); // Hide pre-click content
-      setAnimationClass('fade-in'); // Start fade-in animation
+    try {
+      // Submit username to API
+      const response = await fetch('http://localhost:4000/user/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: inputValue.trim(),
+        }),
+      });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('Username submitted successfully:', result);
+
+      // Proceed with UI animation after successful API call
       setTimeout(() => {
-        setIsAnimating(false); // Animation is complete
-        setLoading(false); // Hide loading indicator
-      }, 200); // Match the duration of the fade-in animation
-    }, 200); // Match the duration of the fade-out animation
+        setShowPreClickContent(false); // Hide pre-click content
+        setAnimationClass('fade-in'); // Start fade-in animation
+
+        setTimeout(() => {
+          setIsAnimating(false); // Animation is complete
+          setLoading(false); // Hide loading indicator
+        }, 200); // Match the duration of the fade-in animation
+      }, 200); // Match the duration of the fade-out animation
+    } catch (error) {
+      console.error('Error submitting username:', error);
+
+      // Show error message but still proceed with UI (for better UX)
+      alert('Có lỗi xảy ra khi gửi thông tin. Vui lòng thử lại!');
+
+      // Reset animation state on error
+      setAnimationClass('');
+      setIsAnimating(false);
+      setLoading(false);
+    }
   };
 
   return (

@@ -440,7 +440,7 @@
 }
 
 .message-text {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   margin: 0;
   background: linear-gradient(135deg, #7dd3c7 0%, #4a9d8e 50%, #2d7a6e 100%);
@@ -476,4 +476,143 @@
 .human-gallery {
   width: 100%;
   height: auto;
+  border-radius: 10px;
+}
+
+/* Live Page Styles */
+.live-page {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  min-height: 100vh !important;
+  width: 100vw !important;
+  overflow-x: hidden;
+}
+
+/* Ensure high quality background rendering */
+.live-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -1;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: high-quality;
+}
+
+.live-content {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(92, 179, 163, 0.1);
+  border-radius: 20px;
+  border: 2px solid rgba(92, 179, 163, 0.3);
+  max-width: 600px;
+  margin: 0 auto;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.live-content h1 {
+  margin: 0 0 1rem 0;
+  font-weight: bold;
+}
+
+.live-content p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Mobile-specific optimizations for live page background */
+@media (max-width: 768px) {
+  .live-page {
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    min-height: 100vh !important;
+  }
+}
+
+/* High DPI displays optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .live-page {
+    background-size: cover !important;
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Positioned Username Animations */
+@keyframes fadeInUsername {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1) translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes fadeInUsernameScale {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.7);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(-5px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.positioned-username {
+  animation: fadeInUsername 0.8s ease-out;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+  filter: drop-shadow(0 0 10px rgba(125, 211, 199, 0.4));
+}
+
+.positioned-username:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Connection status indicator styling */
+.connection-status-indicator {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive adjustments for positioned usernames */
+@media (max-width: 768px) {
+  .positioned-username {
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .positioned-username {
+    font-size: 16px !important;
+  }
+
+  .connection-status-indicator {
+    top: 10px !important;
+    right: 10px !important;
+    font-size: 11px !important;
+    padding: 6px 12px !important;
+  }
 }
