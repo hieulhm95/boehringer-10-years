@@ -46,7 +46,7 @@ function App() {
 
     try {
       // Submit username to API
-      const response = await fetch('http://localhost:4000/user/submit', {
+      const response = await fetch('https://chubb-party-project-backend.onrender.com/user/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -9,7 +9,7 @@ class SocketService {
   private eventListeners: Map<string, EventCallback[]> = new Map();
   private isConnecting: boolean = false;
 
-  constructor(serverUrl: string = 'http://localhost:4000') {
+  constructor(serverUrl: string = 'https://chubb-party-project-backend.onrender.com') {
     this.serverUrl = serverUrl;
   }
 
