@@ -1,0 +1,23 @@
+.background {
+    width:  100dvw;
+    height: 100dvh;
+    background: no-repeat center/cover url("/background.jpg") ;
+}
+
+.text-box{
+    text-align: right;
+    padding-left: 80px;
+    padding-top:200px;
+    position: absolute;
+}
+
+.text {
+    display: block;
+    margin-bottom: 40px;
+}
+
+.map {
+    box-sizing: border-box;
+    height: 100%;
+    padding-left:200px;
+}
