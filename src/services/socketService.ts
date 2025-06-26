@@ -102,13 +102,6 @@ class SocketService {
     }
   }
 
-  private emit(event: string, data?: unknown): void {
-    const listeners = this.eventListeners.get(event);
-    if (listeners) {
-      listeners.forEach(callback => callback(data));
-    }
-  }
-
   send(data: unknown): void {
     if (this.socket && this.socket.connected) {
       this.socket.emit('message', data);
