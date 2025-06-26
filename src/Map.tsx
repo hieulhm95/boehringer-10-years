@@ -24,16 +24,25 @@ function AnimationMap() {
         const nameLength = names.length;
         intervalRef.current = function(){
             setTimeout(() => {
+                const xDirection = minuses[Math.floor(Math.random() * 2)];
+                const yDirection = minuses[Math.floor(Math.random() * 2)];
+
+                const baseX = window.innerWidth / 2;
+                const baseY = window.innerHeight / 2;
+
+                
                 setItemTexts(prev => [
                     ...prev,
                     {
-                        x: window.innerWidth / 2 + 10,
-                        y: window.innerHeight / 2 + 5,
+                        x: baseX,
+                        y: baseY,
                         opacity: 0.025,
-                        xVelocity: (Math.floor(Math.random() * 4) + 2) * minuses[Math.floor(Math.random() * 2)],
-                        yVelocity: (Math.floor(Math.random() * 4) + 2) * minuses[Math.floor(Math.random() * 2)],
-                        stopX: 0,
-                        stopY: 0,
+                        xVelocity: (Math.floor(Math.random() * 4) + 2) * xDirection,
+                        yVelocity: (Math.floor(Math.random() * 4) + 2) * yDirection,
+                        stopX: (Math.floor(Math.random() * 80) + 50),
+                        stopY: (Math.floor(Math.random() * 80) + 50),
+                        currentX: 0,
+                        currentY: 0,
                         text: names[Math.floor(Math.random() * nameLength)]
                     }
                 ]);
@@ -49,38 +58,37 @@ function AnimationMap() {
             setItemTexts(prev => {
                 return prev.map(p => {
                     const opacity = Math.min(1, p.opacity + 0.015);
+                    if(p.currentX == p.stopX || p.currentY == p.stopY) return p;
                     let x = p.x + p.xVelocity;
                     let y = p.y + p.yVelocity;
                     
                     let stopX = false;
                     let stopY = false;
 
-                    if(x >= window.innerWidth - 100) {
-                        x = window.innerWidth - 100;
-                        stopX = true;
-                    }
-                    else if(x <= 20) {
-                        x = 20;
-                        stopX = true;
-                    }
+                    const currentX = p.currentX + 1;
+                    const currentY = p.currentY + 1;
 
-                    if(y >= window.innerHeight - 60) {
-                        y = window.innerHeight - 60;
-                        stopY = true;
-                    }
-                    else if(y <= 20) {
-                        y = 20;
-                        stopY = true;
-                    }
+                    if(currentX == p.stopX) stopX = true;
+                    if(currentY == p.stopY) stopY = true;
 
                     if(stopX) y = p.y;
                     if(stopY) x = p.x;
+                    
+                    let name = p.text;
+                    if(stopX || stopY) return {
+                        url: "/cross-med.png",
+                        x: x,
+                        y: y,
+                    }
 
                     return {
                         ...p,
                         x: x,
                         y: y,
-                        opacity: opacity
+                        currentX: currentX,
+                        currentY: currentY,
+                        opacity: opacity,
+                        text: name,
                     }
                 })
             })
@@ -98,6 +106,9 @@ function AnimationMap() {
         <Layer ref={layerRef}>
             <URLImage src="/map-with-cross.png" width={window.innerWidth} height={window.innerHeight}/>
             {itemTexts.map((t, index) => {
+                if(t.url) {
+                    return <URLImage key={`text-${index}`} src={t.url} width={30} height={30} x={t.x} y={t.y}/>
+                }
                 return <Text key={`text-${index}`} text={t.text} opacity={t.opacity} fill="white" fontSize={24} x={t.x} y={t.y}/>
             })}
         </Layer>
