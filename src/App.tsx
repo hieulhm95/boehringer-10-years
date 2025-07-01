@@ -46,15 +46,18 @@ function App() {
 
     try {
       // Submit username to API
-      const response = await fetch('https://chubb-party-project-backend.onrender.com/user/submit', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: inputValue.trim(),
-        }),
-      });
+      const response = await fetch(
+        'https://boehringer-ingelheim-empa-10years.com/api/user/submit',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: inputValue.trim(),
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
