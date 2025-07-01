@@ -22,7 +22,7 @@ function AnimationMap({ inputUsers }: { inputUsers: string[] }) {
   const backgroundRef = useRef<any>(null);
   const finishRef = useRef<any>(null);
   const currentInputUserIndexRef = useRef<number>(0);
-  const maxTime = 60 * 1000;
+  const maxTime = 10 * 1000;
   const startTimeRef = useRef<number>(Date.now());
   // const [eventStop, setEventStop] = useState<boolean>(false);
 
