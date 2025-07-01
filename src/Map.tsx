@@ -4,7 +4,7 @@
 import { useRef, useEffect, useCallback, useState, Fragment } from 'react';
 import { Stage, Layer, Image, Text } from 'react-konva';
 import { useWebSocket } from './hooks/useWebSocket';
-import { UserJoinedEvent, PositionedUser } from './types/user.types';
+import { UserJoinedEvent /*, PositionedUser*/ } from './types/user.types';
 import './Map.css';
 import useImage from 'use-image';
 
@@ -24,7 +24,7 @@ function AnimationMap({ inputUsers }: { inputUsers: string[] }) {
   const currentInputUserIndexRef = useRef<number>(0);
   const maxTime = 60 * 1000;
   const startTimeRef = useRef<number>(Date.now());
-  const [eventStop, setEventStop] = useState<boolean>(false);
+  // const [eventStop, setEventStop] = useState<boolean>(false);
 
   const generateName = (name: string) => {
     const xDirection = minuses[Math.floor(Math.random() * 2)];
@@ -388,12 +388,12 @@ function AnimationMap({ inputUsers }: { inputUsers: string[] }) {
 
 function Map() {
   const [demoMode, setDemoMode] = useState(false);
-  const [lastSocketActivity, setLastSocketActivity] = useState<number>(Date.now());
+  // const [lastSocketActivity, setLastSocketActivity] = useState<number>(Date.now());
   const [inputUsers, setInputUsers] = useState<string[]>([]);
   const handleUserJoined = useCallback(
     (data: UserJoinedEvent) => {
       // Update last socket activity timestamp
-      setLastSocketActivity(Date.now());
+      // setLastSocketActivity(Date.now());
       setInputUsers(users => [...users, data.username]);
       // Use the new multiple usernames function for more interactive display
       // addMultipleUsernames(data.username, data.userId);
@@ -404,7 +404,7 @@ function Map() {
 
   const handleConnected = useCallback(() => {
     console.log('Connected to live stream WebSocket');
-    setLastSocketActivity(Date.now());
+    // setLastSocketActivity(Date.now());
     setDemoMode(false); // Disable demo mode when real connection works
   }, []);
 
@@ -417,7 +417,7 @@ function Map() {
     console.log('Switching to demo mode...');
     setDemoMode(true); // Enable demo mode on connection error
   }, []);
-  const { isConnected, connect, disconnect } = useWebSocket({
+  const { isConnected /*, connect, disconnect*/ } = useWebSocket({
     onUserJoined: handleUserJoined,
     onConnected: handleConnected,
     onDisconnect: handleDisconnect,
