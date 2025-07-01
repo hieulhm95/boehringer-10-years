@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect, useCallback, useState, Fragment } from 'react';
 import { Stage, Layer, Image, Text } from 'react-konva';
@@ -11,11 +13,7 @@ const URLImage = ({ src, ...rest }) => {
   return <Image image={image} {...rest} />;
 };
 
-function AnimationMap({
-  inputUsers
-}: {
-  inputUsers: string[]
-}) {
+function AnimationMap({ inputUsers }: { inputUsers: string[] }) {
   const minuses = [-1, 1];
 
   const intervalRef = useRef<() => void>(null);
@@ -24,7 +22,7 @@ function AnimationMap({
   const backgroundRef = useRef<any>(null);
   const finishRef = useRef<any>(null);
   const currentInputUserIndexRef = useRef<number>(0);
-  const maxTime = 10 * 1000;
+  const maxTime = 60 * 1000;
   const startTimeRef = useRef<number>(Date.now());
   const [eventStop, setEventStop] = useState<boolean>(false);
 
@@ -33,7 +31,7 @@ function AnimationMap({
     const yDirection = minuses[Math.floor(Math.random() * 2)];
 
     const baseX = window.innerWidth / 2 + (Math.floor(Math.random() * 150) + 25) * xDirection;
-    const baseY = window.innerHeight / 2 + (Math.floor(Math.random() * 200)) * yDirection;
+    const baseY = window.innerHeight / 2 + Math.floor(Math.random() * 200) * yDirection;
 
     return {
       x: baseX,
@@ -47,55 +45,144 @@ function AnimationMap({
       currentY: 0,
       fontSize: 10,
       text: name,
-    }
-  }
+    };
+  };
 
   useEffect(() => {
     let count = 0;
     const names = [
-      'Thảo',
-      'Hoàng Đức',
-      'Vũ Thị Lan',
-      'Phan Van Kiet',
-      'Ngô Văn Hoàng',
-      'Trinh Van Nam',
-      'Le Hieu',
-      'Cao Thi Linh',
-      'Phạm Đức',
-      'Trần Thị Hương',
-      'Ngo Thi Thao',
-      'Dang Thi Mai',
-      'Lam Thi Phuong',
-      'Đặng Minh',
-      'Vo Van Tuan',
-      'Yến',
-      'Bui Van Khang',
-      'Nguyen Van Minh',
-      'Lê Văn Phúc',
-      'Do Van Thanh',
-      'Tran Van Hung',
-      'Pham Thi Hoa',
-      'Nguyen Thi Nga',
-      'Mai',
-      'Le Hoang Duc',
-      'Vu Thi Huong',
-      'Minh',
-      'Duong Thi Yen',
-      'Ly Van Phong',
-      'Khang',
-      'Cao Thị',
-      'Nguyễn Văn Tiên',
-      'Hoang Van Dat',
-      'Linh',
-      'Hương',
-      'Tran Thi Lan',
-      'Le Thi Quynh',
-      'Trịnh Văn',
-      'Nam',
-      'Phương',
+      'VŨ CÔNG NGHĨA',
+      'NGUYỄN THỊ NGỌC BÍCH',
+      'QUÁCH TẤN ĐẠT',
+      'TRẦN THỊ THUÝ HÀ',
+      'LÂM VĂN PHƯƠNG',
+      'NGUYỄN THỊ CẨM NGÂN',
+      'ĐẶNG THỊ NGỌC HỒNG',
+      'NGÔ VĂN TE',
+      'TRẦN THỊ KHÁNH VÂN',
+      'THÁI CHÂU MINH DUY',
+      'HUỲNH QUỐC TOÀN',
+      'NGUYỄN THỊ HỒNG HẠNH',
+      'ĐỖ HÔNG DIỆU',
+      'LÊ NGỌC TÍM',
+      'TRẦN THỊ BÍCH NGỌC',
+      'BÀNH THU PHƯỢNG',
+      'NGUYỄN THỊ NHƯ QUỲNH',
+      'VÕ MINH TRƯỜNG',
+      'TRẦN PHƯỚC MINH ĐĂNG',
+      'HỒ VIỆT TIẾN',
+      'PHAN VĂN TUẤN',
+      'ĐÀO TRỌNG NHÂN',
+      'NGUYỄN THỊ PHƯƠNG DUNG',
+      'Phạm Bá Cường',
+      'NGUYỄN NGỌC ĐÀI TRANG',
+      'TRẦN THỊ MỸ YẾN',
+      'NGUYỄN VĂN TÂM',
+      'LÊ HOÀNG TƯỜNG LÂM',
+      'NGUYỄN THỊ LINH',
+      'CHÂU THỊ DIỄM THANH',
+      'NGUYỄN MINH SANG',
+      'PHẠM NHƯ QUANG',
+      'HỀ NGỌC BÍCH',
+      'NGÔ KHẮC KIÊN',
+      'LÊ QUỐC TRƯỞNG',
+      'NGUYỄN THỊ MỸ YẾN',
+      'TRẦN VĂN HIỀN',
+      'TẠ ĐỨC LUÂN',
+      'NGUYỄN XUÂN TIẾN',
+      'TRẦN THỊ MINH KHA',
+      'NGUYỄN SƠN PHI',
+      'TRẦN TRỌNG THỨC',
+      'NGUYỄN THỊ TUYẾT NHUNG',
+      'HÀ THỊ BẠCH TUYẾT',
+      'VÕ LÊ VÂN',
+      'ĐỖ THỊ NGỌC THUỶ',
+      'NGUYỄN ĐÌNH LÀNH',
+      'PHẠM THỊ MAI HẬU',
+      'TÔ HỒNG NHIÊN',
+      'ĐÀO THỊ HƯƠNG THUỶ',
+      'NGUYỄN ĐỖ HẢI NGỌC',
+      'LAI MINH TRANG',
+      'NGUYỄN THỊ NGỌC YẾN',
+      'BÙI THỊ NGỌC TÚ',
+      'NGUYỄN THỊ KIM TUYẾN',
+      'LÊ ĐĂNG KHOA',
+      'CAO THẾ SƠN',
+      'NGUYỄN HOÀNG TRẬN',
+      'A ẢNH',
+      'HÀ KIM ANH',
+      'LÝ HỒNG DÂN',
+      'NGUYỄN VIẾT THỊNH',
+      'LÊ ĐÌNH QUỲNH',
+      'LÊ HỒNG PHƯƠNG',
+      'TRẦN NGỌC HIẾN',
+      'TRẦN THỊ THANH THÀ',
+      'ĐỖ DUY HỒNG',
+      'THẠCH MINH HIỀN',
+      'NGUYỄN THỊ MINH HIỀN',
+      'DANH PHƯỚC QUÝ',
+      'NÔNG HỮU HOAN',
+      'BÙI MAI NGUYỆT ÁNH',
+      'NAY THỊ THUÝ',
+      'LƯƠNG THỊ RẠNG',
+      'VÕ THỊ KIM NGÂN',
+      'NGUYỄN LÊ NHẬT QUANG',
+      'TRẦN NHƯ TRỌNG ÂN',
+      'HỮU THỊ TRÚC MAI',
+      'NGUYỄN THỊ ÚT',
+      'TRẦN BÙI HOÀI VỌNG',
+      'LÂM MINH LỘC',
+      'NGUYỄN HỮU MẠNH ĐỨC',
+      'VÕ QUANG HÂN',
+      'NGUYỄN THỊ CẨM NHUNG',
+      'LÊ HOÀNG KIM',
+      'NGUYỄN THẾ HÙNG',
+      'NGUYỄN HUỲNH NHẬT QUANG',
+      'TRẦN HỒNG ÂN',
+      'HUỲNH QUỐC CƯỜNG',
+      'ĐOÀN VĂN TIẾP',
+      'NGUYỄN THÀNH TÂM',
+      'ĐÀO CAO NHÂN',
+      'PHẠM VĂN LỘC',
+      'TĂNG XUÂN BÁCH',
+      'HUỲNH VĂN TÍNH',
+      'Phan Thị Vương Châu',
+      'TRỊNH HỒNG VÂN',
+      'NGUYỄN VĂN TRÃI',
+      'TÔ THANH ỬNG',
+      'LÂM TRẦN TUẤN',
+      'Phạm Thanh Huyền Trang',
+      'NGUYỄN ĐOÀN THÀNH TÂM',
+      'HUỲNH THỊ THANH TUYỀN',
+      'NGUYỄN MINH TRƯỜNG',
+      'VÕ THỊ THANH THẢO',
+      'ĐOÀN NAM TRƯỞNG',
+      'NGÔ TÚ LOAN',
+      'LÊ MINH PHƯỢNG',
+      'TRẦN THỊ NGỌC SƯƠNG',
+      'NGUỸEN THUÝ HẰNG',
+      'NGUYỄN QUỐC VIỆT',
+      'TÔ VĂN TUẤN',
+      'ĐỖ HỮU TRƯỜNG HẢI',
+      'KHƯU THỊ LAN PHƯƠNG',
+      'LƯU NGỌC TRÂN',
+      'SƠN THỊ NGỌC GIÀU',
+      'CAO QUỐC HOÀI',
+      'PHẠM TÙNG SƠN',
+      'TRẦN HỒ MỸ TIÊN',
+      'THÁI PHƯƠNG QUANG',
+      'NGÔ VĂN THUYỀN',
+      'PHAN THANH HỒNG',
+      'HỒ THỊ NHƯ Ý',
+      'PHẠM THỊ SUM',
+      'NGUYỄN NGUYÊN HẠNH',
+      'TRẦN THỊ NGỌC XUÂN',
+      'LÊ MINH CHÂU',
+      'HỒ ĐỨC HÒA',
+      'TRẦN THỊ TUYẾT NHUNG',
     ];
     const nameLength = names.length;
-    finishRef.current.style.display = "none";
+    finishRef.current.style.display = 'none';
     intervalRef.current = function () {
       setTimeout(() => {
         setItemTexts(prev => [
@@ -106,24 +193,22 @@ function AnimationMap({
         const currentTime = Date.now();
         if (currentTime - startTimeRef.current >= maxTime - 2000) {
           backgroundRef.current.remove();
-          finishRef.current.style.display = "block";
+          finishRef.current.style.display = 'block';
           finishRef.current.play();
         }
         if (Date.now() - startTimeRef.current < maxTime) {
           intervalRef.current?.();
-        }
-        else {
+        } else {
           setTimeout(() => {
             animation.stop();
           }, 20000);
         }
-
       }, 499);
     };
     intervalRef.current();
     const targetFPS = 30;
     let frameCount = 0;
-    const animation = new (window as any).Konva.Animation((frame) => {
+    const animation = new (window as any).Konva.Animation(frame => {
       const timeDiff = frame.timeDiff;
       frameCount += timeDiff / (1000 / targetFPS);
       if (frameCount >= 1) {
@@ -176,9 +261,9 @@ function AnimationMap({
                 stopY: p.stopY,
                 opacity: _opacity,
                 textOpacity: textOpacity,
-                size: p.size || (Math.floor(p.fontSize) * 3),
+                size: p.size || Math.floor(p.fontSize) * 3,
                 fontSize: p.fontSize,
-                transform: true
+                transform: true,
               };
             }
             return {
@@ -202,32 +287,41 @@ function AnimationMap({
     animation.start();
 
     return () => {
-      intervalRef.current = () => { };
+      intervalRef.current = () => {};
       animation.stop();
     };
   }, []);
 
   useEffect(() => {
     const currentTime = Date.now();
-    if(inputUsers && inputUsers[currentInputUserIndexRef.current] && currentTime - startTimeRef.current < maxTime) {
+    if (
+      inputUsers &&
+      inputUsers[currentInputUserIndexRef.current] &&
+      currentTime - startTimeRef.current < maxTime
+    ) {
       const name = inputUsers[currentInputUserIndexRef.current++];
       setItemTexts(prev => {
-        return [
-          ...prev,
-          generateName(name)
-        ]
+        return [...prev, generateName(name)];
       });
     }
   }, [inputUsers]);
 
   return (
     <div className="wrapper">
-      <video autoPlay muted loop className="video-background" src="/loop.mp4" ref={backgroundRef}></video>
+      <video
+        autoPlay
+        muted
+        loop
+        className="video-background"
+        src="/loop.mp4"
+        ref={backgroundRef}
+      ></video>
       <video muted className="video-background" src="/finish.mp4" ref={finishRef}></video>
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer ref={layerRef}>
           {itemTexts.map((t, index) => {
-            if ((t.x > window.innerWidth || t.x < 0) && (t.y > window.innerHeight || t.y < 0)) return null;
+            if ((t.x > window.innerWidth || t.x < 0) && (t.y > window.innerHeight || t.y < 0))
+              return null;
             if (t.url) {
               return (
                 <Fragment key={`key-${index}`}>
@@ -240,12 +334,12 @@ function AnimationMap({
                     x={t.x}
                     y={t.y}
                     fontStyle="bold"
-                    stroke={"#131313"}
+                    stroke={'#131313'}
                     strokeWidth={1}
-                    shadowColor="#00ffcc"        // teal-cyan glow
-                    shadowBlur={40}              // soft glow radius
-                    shadowOffset={{ x: 0, y: 0 }}// centered glow
-                    shadowOpacity={1}          // adjust glow strength
+                    // shadowColor="#00ffcc" // teal-cyan glow
+                    // shadowBlur={40} // soft glow radius
+                    // shadowOffset={{ x: 0, y: 0 }} // centered glow
+                    // shadowOpacity={1} // adjust glow strength
                     align="center"
                   />
                   <URLImage
@@ -256,10 +350,10 @@ function AnimationMap({
                     x={t.x}
                     y={t.y}
                     opacity={t.opacity}
-                    shadowColor="#00ffcc"        // teal-cyan glow
-                    shadowBlur={40}              // soft glow radius
-                    shadowOffset={{ x: 0, y: 0 }}// centered glow
-                    shadowOpacity={1}          // adjust glow strength
+                    // shadowColor="#00ffcc" // teal-cyan glow
+                    // shadowBlur={40} // soft glow radius
+                    // shadowOffset={{ x: 0, y: 0 }} // centered glow
+                    // shadowOpacity={1} // adjust glow strength
                   />
                 </Fragment>
               );
@@ -275,12 +369,12 @@ function AnimationMap({
                   x={t.x}
                   y={t.y}
                   fontStyle="bold"
-                  stroke={"#131313"}
+                  stroke={'#131313'}
                   strokeWidth={1}
-                  shadowColor="#00ffcc"        // teal-cyan glow
-                  shadowBlur={40}              // soft glow radius
-                  shadowOffset={{ x: 0, y: 0 }}// centered glow
-                  shadowOpacity={1}          // adjust glow strength
+                  // shadowColor="#00ffcc" // teal-cyan glow
+                  // shadowBlur={40} // soft glow radius
+                  // shadowOffset={{ x: 0, y: 0 }} // centered glow
+                  // shadowOpacity={1} // adjust glow strength
                   align="center"
                 />
               </Fragment>
@@ -300,7 +394,7 @@ function Map() {
     (data: UserJoinedEvent) => {
       // Update last socket activity timestamp
       setLastSocketActivity(Date.now());
-      setInputUsers(users => [...users, data.username])
+      setInputUsers(users => [...users, data.username]);
       // Use the new multiple usernames function for more interactive display
       // addMultipleUsernames(data.username, data.userId);
     },
@@ -352,7 +446,7 @@ function Map() {
       >
         {isConnected ? '🟢 LIVE' : demoMode ? '🟡 DEMO' : '🔴 OFFLINE'}
       </div>
-      {isConnected ?  <AnimationMap inputUsers={inputUsers}/> : null}
+      {isConnected ? <AnimationMap inputUsers={inputUsers} /> : null}
       {/* {showedAnimationMap ? <AnimationMap /> : <>
             <div className="text-box">
                 <img src="/tu-nhung-nguoi-da-tien-phong.png" height={40} className="text" />
