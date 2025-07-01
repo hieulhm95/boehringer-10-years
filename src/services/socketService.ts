@@ -9,7 +9,7 @@ class SocketService {
   private eventListeners: Map<string, EventCallback[]> = new Map();
   private isConnecting: boolean = false;
 
-  constructor(serverUrl: string = 'https://boehringer-ingelheim-empa-10years.com/api') {
+  constructor(serverUrl: string = 'https://boehringer-ingelheim-empa-10years.com') {
     this.serverUrl = serverUrl;
   }
 
@@ -31,13 +31,26 @@ class SocketService {
 
     this.isConnecting = true;
 
+    // this.socket = io(this.serverUrl, {
+    //   path: '/api/socket.io',
+    //   transports: ['websocket', 'polling'],
+    //   timeout: 10000,
+    //   reconnection: true,
+    //   reconnectionDelay: 1000,
+    //   reconnectionAttempts: 5,
+    //   forceNew: true, // Force a new connection
+    // });
     this.socket = io(this.serverUrl, {
+      path: '/api/socket.io',
       transports: ['websocket', 'polling'],
       timeout: 10000,
       reconnection: true,
       reconnectionDelay: 1000,
       reconnectionAttempts: 5,
-      forceNew: true, // Force a new connection
+      reconnectionDelayMax: 5000,
+      forceNew: true,
+      upgrade: true,
+      rememberUpgrade: true,
     });
 
     // Handle connection state
