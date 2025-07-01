@@ -9,7 +9,7 @@ class SocketService {
   private eventListeners: Map<string, EventCallback[]> = new Map();
   private isConnecting: boolean = false;
 
-  constructor(serverUrl: string = 'https://boehringer-ingelheim-empa-10years.com') {
+  constructor(serverUrl: string = 'https://boehringer-ingelheim-empa-10years.com/api') {
     this.serverUrl = serverUrl;
   }
 
