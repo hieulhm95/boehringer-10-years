@@ -6,6 +6,13 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'SVN-Gilroy Bold';
+  src: url('./assets/fonts/SVN-Gilroy Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 #root {
   max-width: 100%;
   margin: 0 auto;
@@ -192,7 +199,7 @@
 
   .post-click-content {
     max-width: 95%;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .thank-you-message {
@@ -222,6 +229,22 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
+  }
+
+  .message-text-first-screen {
+    font-weight: 700;
+  }
+
+  .message-text-form {
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .message-text-thank {
+    font-weight: 700;
+    font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
+    line-height: 1.5;
   }
 
   .saved-input-display p {
@@ -258,11 +281,11 @@
 
   .post-click-content {
     max-width: 92%;
-    gap: 1.8rem;
+    gap: 1rem;
   }
 
   .thank-you-message {
-    padding: 1.8rem;
+    padding: 1.5rem;
     max-width: 100%;
   }
 
@@ -275,7 +298,7 @@
   }
 
   .doctor-name {
-    font-size: 25px;
+    font-size: 18px;
     background: linear-gradient(135deg, #7dd3c7 0%, #4a9d8e 50%, #2d7a6e 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -315,11 +338,11 @@
 
   .post-click-content {
     max-width: 90%;
-    gap: 2rem;
+    gap: 1rem;
   }
 
   .thank-you-message {
-    padding: 2rem;
+    padding: 1.5rem;
     max-width: 600px;
   }
 
@@ -401,7 +424,7 @@
   width: 100%;
   max-width: 95%;
   margin: 0 auto;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .thank-you-message {
@@ -411,44 +434,63 @@
   border-radius: 15px;
   width: 100%;
   max-width: 100%;
-  font-family: 'BoehringerForwardHead', Arial, sans-serif;
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
   font-weight: bold;
 }
 
 .thank-you-message h2 {
   font-size: 20px;
   font-weight: bold;
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   background: linear-gradient(135deg, #7dd3c7 0%, #4a9d8e 50%, #2d7a6e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  font-family: 'BoehringerForwardHead', Arial, sans-serif;
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
 }
 
 .doctor-name {
   font-size: 22px;
   font-weight: bold;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   background: linear-gradient(135deg, #7dd3c7 0%, #4a9d8e 50%, #2d7a6e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-family: 'BoehringerForwardHead', Arial, sans-serif;
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
 }
 
 .message-text {
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.3;
   margin: 0;
   background: linear-gradient(135deg, #7dd3c7 0%, #4a9d8e 50%, #2d7a6e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-weight: 500;
-  font-family: 'BoehringerForwardHead', Arial, sans-serif;
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
+}
+
+.message-text-first-screen {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.message-text-form {
+  font-size: 18px;
+  font-weight: 700;
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
+  line-height: 1.3;
+}
+
+.message-text-thank {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
+  line-height: 1.5;
 }
 
 .saved-input-display {
@@ -615,4 +657,41 @@
     font-size: 11px !important;
     padding: 6px 12px !important;
   }
+
+  .message-text-first-screen {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .message-text-form {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .message-text-thank {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 375px) {
+  .message-text-first-screen {
+    font-size: 20px;
+  }
+  .message-text-form {
+    font-size: 16px;
+  }
+  .message-text-thank {
+    font-size: 16px;
+  }
+}
+
+.doctor-name-gradient {
+  font-family: 'SVN-Gilroy Bold', Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #e7c15e 0%, #fbe18a 50%, #e7c15e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  letter-spacing: 0.04em;
 }
