@@ -5,7 +5,6 @@ import FirstScreenLogo from './assets/first-screen-logo.png';
 import AfterClickBackground from './assets/after-click-background.png';
 import LeftLogo from './assets/left-logo.png';
 import RightLogo from './assets/right-logo.png';
-import HumanGallery from './assets/human-gallery.png';
 // import LogoPreClick from './assets/pre-click-content.png';
 // import LogoAfterClick from './assets/after-click-content.png';
 // import AcceptButton from './assets/accept-button.png';
@@ -272,15 +271,18 @@ function App() {
               </div>
 
               <div className="gallery-container">
-                <img
-                  src={HumanGallery}
-                  alt="Human Gallery"
+                <video
+                  src="https://boehringer-ingelheim-empa-10years.com/media/thanks.mp4"
                   className="human-gallery"
                   style={{
                     width: '100%',
                     height: 'auto',
                     objectFit: 'contain',
                   }}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
                 />
               </div>
             </div>
