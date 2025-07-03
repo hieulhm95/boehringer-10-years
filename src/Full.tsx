@@ -13,6 +13,8 @@ const URLImage = ({ src, ...rest }) => {
   return <Image image={image} {...rest} />;
 };
 
+const qrloopVideoUrl = "/qrloop.mp4";
+const startVideoUrl = "/start.mp4";
 const loopVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/loop_v2.mp4";
 const finishVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/finish_v3.mp4";
 
@@ -421,7 +423,7 @@ function AnimationMap({ inputUsers, phase }: {
   );
 }
 
-function Map() {
+function FullMap() {
   const preloadRef = useRef({
     loop: false,
     finish: false
@@ -509,6 +511,9 @@ function Map() {
     }
   }, [socket]);
 
+  const startRef = useRef(null);
+  const [playedFirst, playFirst] = useState(false);
+
   return (
     <div className="background">
       <div
@@ -532,6 +537,19 @@ function Map() {
       >
         {isConnected ? '🟢 LIVE' : demoMode ? '🟡 DEMO' : '🔴 OFFLINE'}
       </div>
+      <div className="full-wrapper">
+        {!playedFirst ? <button className='icon-button' onClick={() => {
+          playFirst(true);
+          (startRef.current as any)?.play();
+        }}><img src="/play.png" /></button> : null}
+        <video preload='auto' controls={false} src={startVideoUrl} ref={startRef} onEnded={() => {
+          if((startRef.current as any).src !== qrloopVideoUrl) {
+            (startRef.current as any).src = qrloopVideoUrl;
+            (startRef.current as any).loop = true;
+            (startRef.current as any).play();
+          }
+        }}/>
+      </div>
       {isConnected && phase.id ? <AnimationMap inputUsers={inputUsers} phase={phase} /> : null}
       {/* {showedAnimationMap ? <AnimationMap /> : <>
             <div className="text-box">
@@ -553,4 +571,4 @@ function Map() {
   );
 }
 
-export default Map;
+export default FullMap;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import App from './App';
 import LivePage from './components/LivePage';
 import Map from './Map';
+import Controller from './Controller';
+import FullMap from './Full';
 
 const Router: React.FC = () => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -20,8 +22,12 @@ const Router: React.FC = () => {
     switch (currentPath) {
       case '/live':
         return <LivePage />;
+      case '/control':
+        return <Controller />;
       case '/map':
         return <Map />;
+      case '/full':
+        return <FullMap />;
       case '/':
       default:
         return <App />;
