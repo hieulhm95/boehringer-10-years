@@ -272,7 +272,7 @@ function App() {
 
               <div className="gallery-container">
                 <video
-                  src="https://boehringer-ingelheim-empa-10years.com/media/thanks.mp4"
+                  src="https://boehringer-ingelheim-empa-10years.com/media/thanks_v2.mp4"
                   className="human-gallery"
                   style={{
                     width: '100%',

@@ -8,21 +8,28 @@ import { useWebSocket } from './hooks/useWebSocket';
 import { UserJoinedEvent /*, PositionedUser*/ } from './types/user.types';
 import './Map.css';
 import useImage from 'use-image';
+import { HN_LIST } from './helpers/constant';
 
 const URLImage = ({ src, ...rest }) => {
   const [image] = useImage(src, 'anonymous');
   return <Image image={image} {...rest} />;
 };
 
-const loopVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/loop_v2.mp4";
-const finishVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/finish_v3.mp4";
+const loopVideoUrl = 'https://boehringer-ingelheim-empa-10years.com/media/loop_v2.mp4';
+const finishVideoUrl = 'https://boehringer-ingelheim-empa-10years.com/media/finish_v3.mp4';
 
-function AnimationMap({ inputUsers, phase, time = -1 }: {
-  inputUsers: string[], phase?: {
-    id: string,
-    playing: boolean,
-    stopped: boolean
-  }, time?: number
+function AnimationMap({
+  inputUsers,
+  phase,
+  time = -1,
+}: {
+  inputUsers: string[];
+  phase?: {
+    id: string;
+    playing: boolean;
+    stopped: boolean;
+  };
+  time?: number;
 }) {
   const phaseRef = useRef(phase);
   const minuses = [-1, 1];
@@ -37,7 +44,7 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
   const backgroundRef = useRef<any>(null);
   const finishRef = useRef<any>(null);
   const currentInputUserIndexRef = useRef<number>(0);
-  const hasMaximumTime = time !== -1;
+  // const hasMaximumTime = time !== -1;
   const maxWaitTime = time == -1 ? 6 * 1000 : time * 1000;
   const startTimeRef = useRef<number>(Date.now());
   // const [eventStop, setEventStop] = useState<boolean>(false);
@@ -66,153 +73,22 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
 
   useEffect(() => {
     let count = 0;
-    const names = [
-      'VŨ CÔNG NGHĨA',
-      'NGUYỄN THỊ NGỌC BÍCH',
-      'QUÁCH TẤN ĐẠT',
-      'TRẦN THỊ THUÝ HÀ',
-      'LÂM VĂN PHƯƠNG',
-      'NGUYỄN THỊ CẨM NGÂN',
-      'ĐẶNG THỊ NGỌC HỒNG',
-      'NGÔ VĂN TE',
-      'TRẦN THỊ KHÁNH VÂN',
-      'THÁI CHÂU MINH DUY',
-      'HUỲNH QUỐC TOÀN',
-      'NGUYỄN THỊ HỒNG HẠNH',
-      'ĐỖ HÔNG DIỆU',
-      'LÊ NGỌC TÍM',
-      'TRẦN THỊ BÍCH NGỌC',
-      'BÀNH THU PHƯỢNG',
-      'NGUYỄN THỊ NHƯ QUỲNH',
-      'VÕ MINH TRƯỜNG',
-      'TRẦN PHƯỚC MINH ĐĂNG',
-      'HỒ VIỆT TIẾN',
-      'PHAN VĂN TUẤN',
-      'ĐÀO TRỌNG NHÂN',
-      'NGUYỄN THỊ PHƯƠNG DUNG',
-      'Phạm Bá Cường',
-      'NGUYỄN NGỌC ĐÀI TRANG',
-      'TRẦN THỊ MỸ YẾN',
-      'NGUYỄN VĂN TÂM',
-      'LÊ HOÀNG TƯỜNG LÂM',
-      'NGUYỄN THỊ LINH',
-      'CHÂU THỊ DIỄM THANH',
-      'NGUYỄN MINH SANG',
-      'PHẠM NHƯ QUANG',
-      'HỀ NGỌC BÍCH',
-      'NGÔ KHẮC KIÊN',
-      'LÊ QUỐC TRƯỞNG',
-      'NGUYỄN THỊ MỸ YẾN',
-      'TRẦN VĂN HIỀN',
-      'TẠ ĐỨC LUÂN',
-      'NGUYỄN XUÂN TIẾN',
-      'TRẦN THỊ MINH KHA',
-      'NGUYỄN SƠN PHI',
-      'TRẦN TRỌNG THỨC',
-      'NGUYỄN THỊ TUYẾT NHUNG',
-      'HÀ THỊ BẠCH TUYẾT',
-      'VÕ LÊ VÂN',
-      'ĐỖ THỊ NGỌC THUỶ',
-      'NGUYỄN ĐÌNH LÀNH',
-      'PHẠM THỊ MAI HẬU',
-      'TÔ HỒNG NHIÊN',
-      'ĐÀO THỊ HƯƠNG THUỶ',
-      'NGUYỄN ĐỖ HẢI NGỌC',
-      'LAI MINH TRANG',
-      'NGUYỄN THỊ NGỌC YẾN',
-      'BÙI THỊ NGỌC TÚ',
-      'NGUYỄN THỊ KIM TUYẾN',
-      'LÊ ĐĂNG KHOA',
-      'CAO THẾ SƠN',
-      'NGUYỄN HOÀNG TRẬN',
-      'A ẢNH',
-      'HÀ KIM ANH',
-      'LÝ HỒNG DÂN',
-      'NGUYỄN VIẾT THỊNH',
-      'LÊ ĐÌNH QUỲNH',
-      'LÊ HỒNG PHƯƠNG',
-      'TRẦN NGỌC HIẾN',
-      'TRẦN THỊ THANH THÀ',
-      'ĐỖ DUY HỒNG',
-      'THẠCH MINH HIỀN',
-      'NGUYỄN THỊ MINH HIỀN',
-      'DANH PHƯỚC QUÝ',
-      'NÔNG HỮU HOAN',
-      'BÙI MAI NGUYỆT ÁNH',
-      'NAY THỊ THUÝ',
-      'LƯƠNG THỊ RẠNG',
-      'VÕ THỊ KIM NGÂN',
-      'NGUYỄN LÊ NHẬT QUANG',
-      'TRẦN NHƯ TRỌNG ÂN',
-      'HỮU THỊ TRÚC MAI',
-      'NGUYỄN THỊ ÚT',
-      'TRẦN BÙI HOÀI VỌNG',
-      'LÂM MINH LỘC',
-      'NGUYỄN HỮU MẠNH ĐỨC',
-      'VÕ QUANG HÂN',
-      'NGUYỄN THỊ CẨM NHUNG',
-      'LÊ HOÀNG KIM',
-      'NGUYỄN THẾ HÙNG',
-      'NGUYỄN HUỲNH NHẬT QUANG',
-      'TRẦN HỒNG ÂN',
-      'HUỲNH QUỐC CƯỜNG',
-      'ĐOÀN VĂN TIẾP',
-      'NGUYỄN THÀNH TÂM',
-      'ĐÀO CAO NHÂN',
-      'PHẠM VĂN LỘC',
-      'TĂNG XUÂN BÁCH',
-      'HUỲNH VĂN TÍNH',
-      'Phan Thị Vương Châu',
-      'TRỊNH HỒNG VÂN',
-      'NGUYỄN VĂN TRÃI',
-      'TÔ THANH ỬNG',
-      'LÂM TRẦN TUẤN',
-      'Phạm Thanh Huyền Trang',
-      'NGUYỄN ĐOÀN THÀNH TÂM',
-      'HUỲNH THỊ THANH TUYỀN',
-      'NGUYỄN MINH TRƯỜNG',
-      'VÕ THỊ THANH THẢO',
-      'ĐOÀN NAM TRƯỞNG',
-      'NGÔ TÚ LOAN',
-      'LÊ MINH PHƯỢNG',
-      'TRẦN THỊ NGỌC SƯƠNG',
-      'NGUỸEN THUÝ HẰNG',
-      'NGUYỄN QUỐC VIỆT',
-      'TÔ VĂN TUẤN',
-      'ĐỖ HỮU TRƯỜNG HẢI',
-      'KHƯU THỊ LAN PHƯƠNG',
-      'LƯU NGỌC TRÂN',
-      'SƠN THỊ NGỌC GIÀU',
-      'CAO QUỐC HOÀI',
-      'PHẠM TÙNG SƠN',
-      'TRẦN HỒ MỸ TIÊN',
-      'THÁI PHƯƠNG QUANG',
-      'NGÔ VĂN THUYỀN',
-      'PHAN THANH HỒNG',
-      'HỒ THỊ NHƯ Ý',
-      'PHẠM THỊ SUM',
-      'NGUYỄN NGUYÊN HẠNH',
-      'TRẦN THỊ NGỌC XUÂN',
-      'LÊ MINH CHÂU',
-      'HỒ ĐỨC HÒA',
-      'TRẦN THỊ TUYẾT NHUNG',
-    ];
+    const names = HN_LIST;
     const nameLength = names.length;
     finishRef.current.style.display = 'none';
-    finishRef.current.style.opacity = "0";
+    finishRef.current.style.opacity = '0';
     const makeFinishClear = () => {
-      let opacity = Number(finishRef.current.style.opacity || "0");
+      let opacity = Number(finishRef.current.style.opacity || '0');
       if (opacity < 1) {
         opacity += 0.05;
         finishRef.current.style.opacity = opacity.toString();
         setTimeout(() => {
           makeFinishClear();
         }, 1000 / targetFPS);
-      }
-      else {
+      } else {
         backgroundRef.current.remove();
       }
-    }
+    };
     intervalRef.current = function () {
       setTimeout(() => {
         setItemTexts(prev => [
@@ -233,12 +109,13 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
             animation.stop();
           }, 10000);
         }
-        if (phaseRef.current && phaseRef.current.id == "loop" && phaseRef.current.playing) {
+        if (phaseRef.current && phaseRef.current.id == 'loop' && phaseRef.current.playing) {
           startTimeRef.current = Date.now();
         }
-      }, 299);
+      }, 499);
     };
-    if (!phaseRef.current || (phaseRef.current.id == "loop" && phaseRef.current.playing)) intervalRef.current();
+    if (!phaseRef.current || (phaseRef.current.id == 'loop' && phaseRef.current.playing))
+      intervalRef.current();
     const targetFPS = 30;
     let frameCount = 0;
     const animation = new (window as any).Konva.Animation(frame => {
@@ -317,16 +194,17 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
       }
     }, layerRef.current);
 
-    if (!phaseRef.current || (phaseRef.current.id == "loop" && phaseRef.current.playing)) animation.start();
+    if (!phaseRef.current || (phaseRef.current.id == 'loop' && phaseRef.current.playing))
+      animation.start();
 
     return () => {
-      intervalRef.current = () => { };
+      intervalRef.current = () => {};
       animation.stop();
     };
   }, []);
 
   useEffect(() => {
-    if (phaseRef.current && phaseRef.current.stopped && phaseRef.current.id == "loop") return;
+    if (phaseRef.current && phaseRef.current.stopped && phaseRef.current.id == 'loop') return;
 
     const currentTime = Date.now();
     if (
@@ -366,7 +244,7 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
                     opacity={t.textOpacity}
                     fill="white"
                     fontSize={t.fontSize}
-                    fontFamily='BoehringerForwardHead'
+                    fontFamily="BoehringerForwardHead"
                     x={t.x}
                     y={t.y}
                     fontStyle="bold"
@@ -386,10 +264,10 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
                     x={t.x}
                     y={t.y}
                     opacity={t.opacity}
-                  // shadowColor="#00ffcc" // teal-cyan glow
-                  // shadowBlur={40} // soft glow radius
-                  // shadowOffset={{ x: 0, y: 0 }} // centered glow
-                  // shadowOpacity={1} // adjust glow strength
+                    // shadowColor="#00ffcc" // teal-cyan glow
+                    // shadowBlur={40} // soft glow radius
+                    // shadowOffset={{ x: 0, y: 0 }} // centered glow
+                    // shadowOpacity={1} // adjust glow strength
                   />
                 </Fragment>
               );
@@ -402,7 +280,7 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
                   opacity={t.opacity}
                   fill="white"
                   fontSize={t.fontSize}
-                  fontFamily='BoehringerForwardHead'
+                  fontFamily="BoehringerForwardHead"
                   x={t.x}
                   y={t.y}
                   fontStyle="bold"
@@ -425,16 +303,16 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
 
 function Map() {
   const { time: _time } = useParams();
-  const time = _time || "90";
+  const time = _time || '90';
   const preloadRef = useRef({
     loop: false,
-    finish: false
-  })
+    finish: false,
+  });
   const [demoMode, setDemoMode] = useState(false);
-  const [phase, setPhase] = useState<{ id: string, playing: boolean, stopped: boolean }>({
-    id: "",
+  const [phase, setPhase] = useState<{ id: string; playing: boolean; stopped: boolean }>({
+    id: '',
     playing: false,
-    stopped: false
+    stopped: false,
   });
   // const [lastSocketActivity, setLastSocketActivity] = useState<number>(Date.now());
   const [inputUsers, setInputUsers] = useState<string[]>([]);
@@ -473,53 +351,53 @@ function Map() {
   });
 
   useEffect(() => {
-    const handleBeforeUnload = (event) => {
+    const handleBeforeUnload = event => {
       event.preventDefault();
       event.returnValue = ''; // Required for Chrome
     };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+    window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, []);
 
-  const playHandler = useCallback((_phase) => {
-    if(phase.id == _phase?.phase && phase.stopped) return;
+  const playHandler = useCallback(_phase => {
+    if (phase.id == _phase?.phase && phase.stopped) return;
 
     setPhase({
       id: _phase?.phase,
       playing: true,
-      stopped: false
-    })
+      stopped: false,
+    });
   }, []);
 
-  const stopHandler = useCallback((_phase) => {
+  const stopHandler = useCallback(_phase => {
     setPhase({
       id: _phase?.phase,
       playing: false,
-      stopped: true
-    })
+      stopped: true,
+    });
   }, []);
 
   useEffect(() => {
-    if(!time) {
-      socket?.on("play", playHandler);
-      socket?.on("pause", stopHandler); 
+    if (!time) {
+      socket?.on('play', playHandler);
+      socket?.on('pause', stopHandler);
     }
     return () => {
-      socket?.off("play", playHandler);
-      socket?.off("pause", stopHandler);
-    }
+      socket?.off('play', playHandler);
+      socket?.off('pause', stopHandler);
+    };
   }, [socket]);
 
   const loadable = () => {
-    if(!isConnected) return false
-    if(!time && !phase.id) return false;
-    
+    if (!isConnected) return false;
+    if (!time && !phase.id) return false;
+
     return true;
-  }
+  };
 
   return (
     <div className="background">
@@ -532,8 +410,8 @@ function Map() {
           background: isConnected
             ? 'rgba(40, 167, 69, 0.8)'
             : demoMode
-              ? 'rgba(255, 193, 7, 0.8)'
-              : 'rgba(220, 53, 69, 0.8)',
+            ? 'rgba(255, 193, 7, 0.8)'
+            : 'rgba(220, 53, 69, 0.8)',
           color: 'white',
           padding: '8px 16px',
           borderRadius: '20px',
@@ -544,7 +422,13 @@ function Map() {
       >
         {isConnected ? '🟢 LIVE' : demoMode ? '🟡 DEMO' : '🔴 OFFLINE'}
       </div>
-      {loadable() ? <AnimationMap inputUsers={inputUsers} phase={!time ? phase : undefined} time={time ? Number(time) : -1}/> : null}
+      {loadable() ? (
+        <AnimationMap
+          inputUsers={inputUsers}
+          phase={!time ? phase : undefined}
+          time={time ? Number(time) : -1}
+        />
+      ) : null}
       {/* {showedAnimationMap ? <AnimationMap /> : <>
             <div className="text-box">
                 <img src="/tu-nhung-nguoi-da-tien-phong.png" height={40} className="text" />
@@ -555,12 +439,26 @@ function Map() {
                 <img src="/map-with-cross.png" height="99%"/>
             </div>
         </>} */}
-      {!preloadRef.current.loop ? <video src={loopVideoUrl} preload="auto" className="preload-video" onCanPlayThrough={() => {
-        preloadRef.current.loop = true;
-      }} /> : null}
-      {!preloadRef.current.finish ? <video src={finishVideoUrl} preload="auto" className="preload-video" onCanPlayThrough={() => {
-        preloadRef.current.finish = true;
-      }} /> : null}
+      {!preloadRef.current.loop ? (
+        <video
+          src={loopVideoUrl}
+          preload="auto"
+          className="preload-video"
+          onCanPlayThrough={() => {
+            preloadRef.current.loop = true;
+          }}
+        />
+      ) : null}
+      {!preloadRef.current.finish ? (
+        <video
+          src={finishVideoUrl}
+          preload="auto"
+          className="preload-video"
+          onCanPlayThrough={() => {
+            preloadRef.current.finish = true;
+          }}
+        />
+      ) : null}
     </div>
   );
 }
