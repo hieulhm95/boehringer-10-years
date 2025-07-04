@@ -18,7 +18,7 @@ const loopVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/loop_v
 const finishVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/finish_v3.mp4";
 
 function AnimationMap({ inputUsers, phase, time = -1 }: {
-  inputUsers: string[], phase: {
+  inputUsers: string[], phase?: {
     id: string,
     playing: boolean,
     stopped: boolean
@@ -424,7 +424,8 @@ function AnimationMap({ inputUsers, phase, time = -1 }: {
 }
 
 function Map() {
-  const { time } = useParams();
+  const { time: _time } = useParams();
+  const time = _time || "90";
   const preloadRef = useRef({
     loop: false,
     finish: false
@@ -543,7 +544,7 @@ function Map() {
       >
         {isConnected ? '🟢 LIVE' : demoMode ? '🟡 DEMO' : '🔴 OFFLINE'}
       </div>
-      {loadable() ? <AnimationMap inputUsers={inputUsers} phase={!time ? phase : null} time={time ? Number(time) || -1}/> : null}
+      {loadable() ? <AnimationMap inputUsers={inputUsers} phase={!time ? phase : undefined} time={time ? Number(time) : -1}/> : null}
       {/* {showedAnimationMap ? <AnimationMap /> : <>
             <div className="text-box">
                 <img src="/tu-nhung-nguoi-da-tien-phong.png" height={40} className="text" />
