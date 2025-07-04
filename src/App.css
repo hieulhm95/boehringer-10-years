@@ -28,6 +28,9 @@
   bottom: 0;
   display: flex;
   flex-direction: column;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
 }
 
 .header {
@@ -383,6 +386,9 @@
   .posterWrapper {
     max-width: 375px;
     position: relative;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
   }
 }
 

@@ -257,12 +257,12 @@ function App() {
           <div className={`content ${animationClass}`}>
             <div className="post-click-content">
               <div className="thank-you-message">
-                <h2>Cám ơn Quý BÁC SĨ/DƯỢC SĨ:</h2>
+                <h2>Cảm ơn Quý BÁC SĨ/DƯỢC SĨ:</h2>
                 {savedInputValue && (
                   <h3 className="doctor-name doctor-name-gradient">{savedInputValue}</h3>
                 )}
                 <p className="message-text message-text-thank">
-                  ĐÃ CÙNG ĐỒNG HÀNH
+                  ĐÃ LUÔN ĐỒNG HÀNH
                   <br />
                   ĐỂ NHIỀU BỆNH NHÂN
                   <br />
