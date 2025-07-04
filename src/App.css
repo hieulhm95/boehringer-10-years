@@ -75,6 +75,10 @@
 .footer {
   width: 100%;
   cursor: pointer;
+
+  button {
+    padding: 0;
+  }
 }
 
 .footer img {
