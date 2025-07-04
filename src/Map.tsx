@@ -112,7 +112,7 @@ function AnimationMap({
         if (phaseRef.current && phaseRef.current.id == 'loop' && phaseRef.current.playing) {
           startTimeRef.current = Date.now();
         }
-      }, 499);
+      }, 799);
     };
     if (!phaseRef.current || (phaseRef.current.id == 'loop' && phaseRef.current.playing))
       intervalRef.current();
@@ -123,72 +123,84 @@ function AnimationMap({
       frameCount += timeDiff / (1000 / targetFPS);
       if (frameCount >= 1) {
         setItemTexts(prev => {
-          return prev.map(p => {
-            const opacity = Math.min(1, p.opacity + 0.015);
-            // if (p.currentX == p.stopX || p.currentY == p.stopY) return p;
-            const xDirection = p.xVelocity < 0 ? -1 : 1;
-            const yDirection = p.yVelocity < 0 ? -1 : 1;
+          return prev
+            .map(p => {
+              const opacity = Math.min(1, p.opacity + 0.015);
+              // if (p.currentX == p.stopX || p.currentY == p.stopY) return p;
+              const xDirection = p.xVelocity < 0 ? -1 : 1;
+              const yDirection = p.yVelocity < 0 ? -1 : 1;
 
-            const xVelocity = (Math.abs(p.xVelocity) + 0.095) * xDirection;
-            const yVelocity = (Math.abs(p.yVelocity) + 0.025) * yDirection;
+              const xVelocity = (Math.abs(p.xVelocity) + 0.095) * xDirection;
+              const yVelocity = (Math.abs(p.yVelocity) + 0.025) * yDirection;
 
-            let x = p.x + xVelocity;
-            let y = p.y + yVelocity;
+              let x = p.x + xVelocity;
+              let y = p.y + yVelocity;
 
-            let stopX = false;
-            let stopY = false;
+              let stopX = false;
+              let stopY = false;
 
-            let currentX = p.currentX;
-            let currentY = p.currentY;
+              let currentX = p.currentX;
+              let currentY = p.currentY;
 
-            if (currentX == p.stopX) stopX = true;
-            else currentX += 1;
+              if (currentX == p.stopX) stopX = true;
+              else currentX += 1;
 
-            if (currentY == p.stopY) stopY = true;
-            else currentY += 1;
+              if (currentY == p.stopY) stopY = true;
+              else currentY += 1;
 
-            // if (stopX) y = p.y;
-            // if (stopY) x = p.x;
+              // if (stopX) y = p.y;
+              // if (stopY) x = p.x;
 
-            const name = p.text;
-            let fontSize = p.fontSize;
-            if (!stopX && !stopY) {
-              fontSize += 0.5;
-            }
-            if (stopX || stopY) {
-              const _opacity = p.transform ? p.opacity : Math.min(0.95, opacity * Math.random());
-              const textOpacity = p.transform ? Math.max(0, p.textOpacity - 0.05) : 1;
+              const name = p.text;
+              let fontSize = p.fontSize;
+              if (!stopX && !stopY) {
+                fontSize += 0.5;
+              }
+              if (stopX || stopY) {
+                const _opacity = p.transform ? p.opacity : Math.min(0.95, opacity * Math.random());
+                const textOpacity = p.transform ? Math.max(0, p.textOpacity - 0.05) : 1;
+                return {
+                  url: '/cross-med.png',
+                  text: p.text,
+                  x: x,
+                  y: y,
+                  xVelocity: xVelocity,
+                  yVelocity: yVelocity,
+                  currentX: currentX,
+                  currentY: currentY,
+                  stopX: p.stopX,
+                  stopY: p.stopY,
+                  opacity: _opacity,
+                  textOpacity: textOpacity,
+                  size: p.size || Math.floor(p.fontSize) * 3,
+                  fontSize: p.fontSize,
+                  transform: true,
+                };
+              }
               return {
-                url: '/cross-med.png',
-                text: p.text,
-                x: x,
-                y: y,
+                ...p,
                 xVelocity: xVelocity,
                 yVelocity: yVelocity,
+                x: x,
+                y: y,
                 currentX: currentX,
                 currentY: currentY,
-                stopX: p.stopX,
-                stopY: p.stopY,
-                opacity: _opacity,
-                textOpacity: textOpacity,
-                size: p.size || Math.floor(p.fontSize) * 3,
-                fontSize: p.fontSize,
-                transform: true,
+                opacity: opacity,
+                text: name,
+                fontSize: fontSize,
               };
-            }
-            return {
-              ...p,
-              xVelocity: xVelocity,
-              yVelocity: yVelocity,
-              x: x,
-              y: y,
-              currentX: currentX,
-              currentY: currentY,
-              opacity: opacity,
-              text: name,
-              fontSize: fontSize,
-            };
-          });
+            })
+            .filter(p => {
+              // Remove items that are way off screen to prevent memory leak
+              const buffer = 200; // Keep some buffer for smooth transitions
+              return !(
+                (
+                  (p.x < -buffer && p.y < -buffer) ||
+                  (p.x > window.innerWidth + buffer && p.y > window.innerHeight + buffer) ||
+                  (p.transform && p.textOpacity <= 0)
+                ) // Remove fully faded cross items
+              );
+            });
         });
         frameCount = 0;
       }
