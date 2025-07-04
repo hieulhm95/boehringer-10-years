@@ -112,7 +112,7 @@ function AnimationMap({
         if (phaseRef.current && phaseRef.current.id == 'loop' && phaseRef.current.playing) {
           startTimeRef.current = Date.now();
         }
-      }, 799);
+      }, 699);
     };
     if (!phaseRef.current || (phaseRef.current.id == 'loop' && phaseRef.current.playing))
       intervalRef.current();
