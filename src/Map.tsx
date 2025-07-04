@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef, useEffect, useCallback, useState, Fragment } from 'react';
 import { Stage, Layer, Image, Text } from 'react-konva';
+import { useParams } from 'react-router-dom';
 import { useWebSocket } from './hooks/useWebSocket';
 import { UserJoinedEvent /*, PositionedUser*/ } from './types/user.types';
 import './Map.css';
@@ -16,19 +17,19 @@ const URLImage = ({ src, ...rest }) => {
 const loopVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/loop_v2.mp4";
 const finishVideoUrl = "https://boehringer-ingelheim-empa-10years.com/media/finish_v3.mp4";
 
-function AnimationMap({ inputUsers, phase }: {
+function AnimationMap({ inputUsers, phase, time = -1 }: {
   inputUsers: string[], phase: {
     id: string,
     playing: boolean,
     stopped: boolean
-  }
+  }, time?: number
 }) {
   const phaseRef = useRef(phase);
   const minuses = [-1, 1];
 
   useEffect(() => {
     phaseRef.current = phase;
-  }, [phase.id, phase.stopped, phase.playing]);
+  }, [phase?.id, phase?.stopped, phase?.playing]);
 
   const intervalRef = useRef<() => void>(null);
   const layerRef = useRef<any>(null);
@@ -36,7 +37,8 @@ function AnimationMap({ inputUsers, phase }: {
   const backgroundRef = useRef<any>(null);
   const finishRef = useRef<any>(null);
   const currentInputUserIndexRef = useRef<number>(0);
-  const maxWaitTime = 6 * 1000;
+  const hasMaximumTime = time !== -1;
+  const maxWaitTime = time == -1 ? 6 * 1000 : time * 1000;
   const startTimeRef = useRef<number>(Date.now());
   // const [eventStop, setEventStop] = useState<boolean>(false);
 
@@ -231,12 +233,12 @@ function AnimationMap({ inputUsers, phase }: {
             animation.stop();
           }, 10000);
         }
-        if (phaseRef.current.id == "loop" && phaseRef.current.playing) {
+        if (phaseRef.current && phaseRef.current.id == "loop" && phaseRef.current.playing) {
           startTimeRef.current = Date.now();
         }
       }, 299);
     };
-    if (phaseRef.current.id == "loop" && phaseRef.current.playing) intervalRef.current();
+    if (!phaseRef.current || (phaseRef.current.id == "loop" && phaseRef.current.playing)) intervalRef.current();
     const targetFPS = 30;
     let frameCount = 0;
     const animation = new (window as any).Konva.Animation(frame => {
@@ -315,7 +317,7 @@ function AnimationMap({ inputUsers, phase }: {
       }
     }, layerRef.current);
 
-    if (phaseRef.current.id == "loop" && phaseRef.current.playing) animation.start();
+    if (!phaseRef.current || (phaseRef.current.id == "loop" && phaseRef.current.playing)) animation.start();
 
     return () => {
       intervalRef.current = () => { };
@@ -324,7 +326,7 @@ function AnimationMap({ inputUsers, phase }: {
   }, []);
 
   useEffect(() => {
-    if (phaseRef.current.stopped && phaseRef.current.id == "loop") return;
+    if (phaseRef.current && phaseRef.current.stopped && phaseRef.current.id == "loop") return;
 
     const currentTime = Date.now();
     if (
@@ -422,6 +424,7 @@ function AnimationMap({ inputUsers, phase }: {
 }
 
 function Map() {
+  const { time } = useParams();
   const preloadRef = useRef({
     loop: false,
     finish: false
@@ -500,14 +503,22 @@ function Map() {
   }, []);
 
   useEffect(() => {
-    console.log(socket)
-    socket?.on("play", playHandler);
-    socket?.on("pause", stopHandler);
+    if(!time) {
+      socket?.on("play", playHandler);
+      socket?.on("pause", stopHandler); 
+    }
     return () => {
       socket?.off("play", playHandler);
       socket?.off("pause", stopHandler);
     }
   }, [socket]);
+
+  const loadable = () => {
+    if(!isConnected) return false
+    if(!time && !phase.id) return false;
+    
+    return true;
+  }
 
   return (
     <div className="background">
@@ -532,7 +543,7 @@ function Map() {
       >
         {isConnected ? '🟢 LIVE' : demoMode ? '🟡 DEMO' : '🔴 OFFLINE'}
       </div>
-      {isConnected && phase.id ? <AnimationMap inputUsers={inputUsers} phase={phase} /> : null}
+      {loadable() ? <AnimationMap inputUsers={inputUsers} phase={!time ? phase : null} time={time ? Number(time) || -1}/> : null}
       {/* {showedAnimationMap ? <AnimationMap /> : <>
             <div className="text-box">
                 <img src="/tu-nhung-nguoi-da-tien-phong.png" height={40} className="text" />

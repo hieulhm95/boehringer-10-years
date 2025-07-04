@@ -26,6 +26,8 @@ const Router: React.FC = () => {
         return <Controller />;
       case '/map':
         return <Map />;
+      case '/map/:time':
+        return <Map />;
       case '/full':
         return <FullMap />;
       case '/':
