@@ -42,7 +42,7 @@ function AnimationMap({
   const layerRef = useRef<any>(null);
   const [itemTexts, setItemTexts] = useState<any[]>([]);
   const backgroundRef = useRef<any>(null);
-  const finishRef = useRef<any>(null);
+  // const finishRef = useRef<any>(null);
   const currentInputUserIndexRef = useRef<number>(0);
   // const hasMaximumTime = time !== -1;
   const maxWaitTime = time == -1 ? 6 * 1000 : time * 1000;
@@ -75,20 +75,20 @@ function AnimationMap({
     let count = 0;
     const names = HN_LIST;
     const nameLength = names.length;
-    finishRef.current.style.display = 'none';
-    finishRef.current.style.opacity = '0';
-    const makeFinishClear = () => {
-      let opacity = Number(finishRef.current.style.opacity || '0');
-      if (opacity < 1) {
-        opacity += 0.05;
-        finishRef.current.style.opacity = opacity.toString();
-        setTimeout(() => {
-          makeFinishClear();
-        }, 1000 / targetFPS);
-      } else {
-        backgroundRef.current.remove();
-      }
-    };
+    // finishRef.current.style.display = 'none';
+    // finishRef.current.style.opacity = '0';
+    // const makeFinishClear = () => {
+    //   let opacity = Number(finishRef.current.style.opacity || '0');
+    //   if (opacity < 1) {
+    //     opacity += 0.05;
+    //     finishRef.current.style.opacity = opacity.toString();
+    //     setTimeout(() => {
+    //       makeFinishClear();
+    //     }, 1000 / targetFPS);
+    //   } else {
+    //     backgroundRef.current.remove();
+    //   }
+    // };
     intervalRef.current = function () {
       setTimeout(() => {
         setItemTexts(prev => [
@@ -96,12 +96,12 @@ function AnimationMap({
           generateName(names[Math.floor(Math.random() * nameLength)]),
         ]);
         count += 1;
-        const currentTime = Date.now();
-        if (currentTime - startTimeRef.current >= maxWaitTime - 2000) {
-          finishRef.current.style.display = 'block';
-          finishRef.current.play();
-          makeFinishClear();
-        }
+        // const currentTime = Date.now();
+        // if (currentTime - startTimeRef.current >= maxWaitTime - 2000) {
+        //   finishRef.current.style.display = 'block';
+        //   finishRef.current.play();
+        //   makeFinishClear();
+        // }
         if (Date.now() - startTimeRef.current < maxWaitTime) {
           intervalRef.current?.();
         } else {
@@ -229,7 +229,7 @@ function AnimationMap({
         src={loopVideoUrl}
         ref={backgroundRef}
       ></video>
-      <video muted className="video-background" src={finishVideoUrl} ref={finishRef}></video>
+      {/* <video muted className="video-background" src={finishVideoUrl} ref={finishRef}></video> */}
       <Stage width={window.innerWidth} height={window.innerHeight}>
         <Layer ref={layerRef}>
           {itemTexts.map((t, index) => {
@@ -303,7 +303,7 @@ function AnimationMap({
 
 function Map() {
   const { time: _time } = useParams();
-  const time = _time || '90';
+  const time = _time || '9999';
   const preloadRef = useRef({
     loop: false,
     finish: false,
