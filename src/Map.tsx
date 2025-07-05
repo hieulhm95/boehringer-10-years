@@ -8,7 +8,7 @@ import { useWebSocket } from './hooks/useWebSocket';
 import { UserJoinedEvent /*, PositionedUser*/ } from './types/user.types';
 import './Map.css';
 import useImage from 'use-image';
-import { HN_LIST } from './helpers/constant';
+import { HCM_LIST } from './helpers/constant';
 
 const URLImage = ({ src, ...rest }) => {
   const [image] = useImage(src, 'anonymous');
@@ -73,7 +73,7 @@ function AnimationMap({
 
   useEffect(() => {
     let count = 0;
-    const names = HN_LIST;
+    const names = HCM_LIST;
     const nameLength = names.length;
     // finishRef.current.style.display = 'none';
     // finishRef.current.style.opacity = '0';
