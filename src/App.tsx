@@ -169,9 +169,8 @@ function App() {
               {/* Text */}
               <div>
                 <p className="message-text message-text-first-screen">
-                  MỖI QUYẾT ĐỊNH KỊP THỜI
-                  <br />
-                  NHIỂU CUỘC ĐỜI ĐƯỢC BẢO VỆ
+                  <div style={{ lineHeight: '1.6' }}>MỖI QUYẾT ĐỊNH KỊP THỜI</div>
+                  <div style={{}}>NHIỀU CUỘC ĐỜI ĐƯỢC BẢO VỆ</div>
                 </p>
               </div>
 
